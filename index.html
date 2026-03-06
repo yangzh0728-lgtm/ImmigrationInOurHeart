@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SettleIn — California Immigrant Community Hub</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Noto+Sans+SC:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" onclick="goHome()" style="cursor:pointer">
+      <div class="logo-icon">S</div>
+      SettleIn <span style="font-weight:400;color:var(--text-tertiary);font-size:0.85rem;margin-left:2px" data-i18n="nav_region">California</span>
+    </a>
+    <div class="nav-tabs">
+      <button class="nav-tab active" data-tab="home" onclick="showTab('home')" data-i18n="nav_resources">Resources</button>
+      <button class="nav-tab" data-tab="forum" onclick="showTab('forum')" data-i18n="nav_forum">Community Forum</button>
+      <button class="nav-tab" data-tab="checklist" onclick="showTab('checklist')" data-i18n="nav_checklist">My Checklist</button>
+    </div>
+
+    <!-- LANGUAGE SWITCHER -->
+    <div class="lang-switcher-wrap">
+      <button class="lang-btn" id="langBtn" onclick="toggleLangDropdown()">
+        <span class="globe-icon">🌐</span>
+        <span id="langBtnLabel">English</span>
+        <span class="arrow">▼</span>
+      </button>
+      <div class="lang-dropdown" id="langDropdown">
+        <div class="lang-dropdown-header" data-i18n="lang_select_label">Select Language</div>
+        <button class="lang-option active" data-lang="en" onclick="switchLang('en')">
+          <span class="lang-flag">🇺🇸</span>
+          <span class="lang-info">
+            <span class="lang-name">English</span>
+            <span class="lang-native">English</span>
+          </span>
+          <span class="check-mark">✓</span>
+        </button>
+        <button class="lang-option" data-lang="zh-CN" onclick="switchLang('zh-CN')">
+          <span class="lang-flag">🇨🇳</span>
+          <span class="lang-info">
+            <span class="lang-name" data-i18n="lang_zhCN">Simplified Chinese</span>
+            <span class="lang-native">简体中文</span>
+          </span>
+          <span class="check-mark">✓</span>
+        </button>
+        <button class="lang-option" data-lang="zh-TW" onclick="switchLang('zh-TW')">
+          <span class="lang-flag">🇹🇼</span>
+          <span class="lang-info">
+            <span class="lang-name" data-i18n="lang_zhTW">Traditional Chinese</span>
+            <span class="lang-native">繁體中文</span>
+          </span>
+          <span class="check-mark">✓</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO — shows on HOMEPAGE -->
+<section class="hero" id="hero-section">
+  <div class="hero-inner">
+    <div class="hero-badge">📍 <span data-i18n="hero_badge">California, USA — Updated Mar 2026</span></div>
+    <h1 data-i18n="hero_title">Everything you need to settle in California</h1>
+    <p data-i18n="hero_desc">Real, verified resources for new immigrants — organized by what you actually need to do, with community voting to keep info fresh and accurate.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="num">80+</span><span class="label" data-i18n="hero_stat_resources">Verified Links</span></div>
+      <div class="hero-stat"><span class="num">8</span><span class="label" data-i18n="hero_stat_categories">Categories</span></div>
+      <div class="hero-stat"><span class="num">5W1H</span><span class="label" data-i18n="hero_stat_framework">Answer Framework</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOMEPAGE CATEGORY GRID -->
+<div class="main" id="page-homepage">
+  <div id="homeCategoryGrid" class="home-cat-grid"></div>
+
+  <!-- QUICK EMERGENCY BAR on homepage -->
+  <div class="home-emergency">
+    <span style="font-weight:600">🚨 <span data-i18n="emergency_title">Emergency Numbers</span>:</span>
+    <span><strong>911</strong> <span data-i18n="em_911">— Police, Fire, Ambulance</span></span>
+    <span><strong>211</strong> <span data-i18n="em_211">— Social services</span></span>
+    <span><strong>(800) 375-5283</strong> <span data-i18n="em_uscis">— USCIS</span></span>
+  </div>
+</div>
+
+<!-- DETAIL PAGE (hidden by default) -->
+<div id="page-detail" style="display:none">
+  <div class="detail-topbar">
+    <button class="back-btn" onclick="goHome()">← <span data-i18n="back_home">Back to Home</span></button>
+    <div class="detail-search-bar">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input type="text" id="detailSearchInput" oninput="filterCards()" data-i18n-placeholder="search_placeholder" placeholder="Search in this category...">
+    </div>
+  </div>
+  <div class="main">
+    <div class="detail-header" id="detailHeader"></div>
+    <div class="cards-grid" id="cardsGrid"></div>
+  </div>
+</div>
+
+<!-- FORUM PAGE -->
+<div id="page-forum" style="display:none">
+  <div class="main">
+    <div class="forum-section" style="border:none;margin:0;padding:0">
+      <h2 data-i18n="forum_title">Community Forum</h2>
+      <p data-i18n="forum_desc">Ask questions, share tips, and help fellow immigrants navigate life in California.</p>
+      <div class="new-post-form">
+        <textarea id="newPostInput" data-i18n-placeholder="forum_input_placeholder" placeholder="Ask a question or share a tip for the community..."></textarea>
+        <div class="form-row">
+          <span style="font-size:0.78rem;color:var(--text-tertiary)" data-i18n="forum_guidelines">Be kind · Be helpful · Share your experience</span>
+          <button class="post-btn" onclick="addPost()" data-i18n="forum_post_btn">Post to Community</button>
+        </div>
+      </div>
+      <div id="forumPosts"></div>
+    </div>
+  </div>
+</div>
+
+<!-- CHECKLIST PAGE -->
+<div id="page-checklist" style="display:none">
+  <div class="main">
+    <div class="layout-split">
+      <div>
+        <h2 style="font-size:1.4rem;font-weight:700;letter-spacing:-0.02em;margin-bottom:0.5rem" data-i18n="checklist_title">Your Settlement Checklist</h2>
+        <p style="color:var(--text-secondary);font-size:0.92rem;margin-bottom:1.5rem" data-i18n="checklist_desc">Track your progress as you settle into California. Check off tasks as you complete them.</p>
+        <div id="checklistContainer"></div>
+      </div>
+      <div class="sidebar">
+        <div class="emergency-card">
+          <h3>🚨 <span data-i18n="emergency_title">Emergency Numbers</span></h3>
+          <div class="emergency-line"><strong>911</strong> <span data-i18n="em_911">— Police, Fire, Ambulance</span></div>
+          <div class="emergency-line"><strong>211</strong> <span data-i18n="em_211">— Social services &amp; community info</span></div>
+          <div class="emergency-line"><strong>988</strong> <span data-i18n="em_988">— Suicide &amp; Crisis Lifeline</span></div>
+          <div class="emergency-line"><strong>(800) 952-5225</strong> <span data-i18n="em_doj">— CA DOJ Immigration Help</span></div>
+          <div class="emergency-line"><strong>(888) 624-4752</strong> <span data-i18n="em_chirla">— CHIRLA Immigrant Rights</span></div>
+          <div class="emergency-line"><strong>(800) 375-5283</strong> <span data-i18n="em_uscis">— USCIS Customer Service</span></div>
+        </div>
+        <div class="checklist-card" style="margin-top:1rem">
+          <h3>📌 <span data-i18n="key_websites">Key Websites</span></h3>
+          <div style="font-size:0.85rem;line-height:2;color:var(--text-secondary)">
+            <a href="https://www.immigrantguide.ca.gov/" target="_blank" style="color:var(--blue);text-decoration:none" data-i18n="link_ca_guide">CA Immigrant Guide ↗</a><br>
+            <a href="https://www.dmv.ca.gov/portal/driver-education-and-safety/special-interest-driver-guides/new-to-california/" target="_blank" style="color:var(--blue);text-decoration:none" data-i18n="link_dmv">CA DMV New Resident ↗</a><br>
+            <a href="https://www.ssa.gov/ssnvisa/" target="_blank" style="color:var(--blue);text-decoration:none" data-i18n="link_ssa">SSA for Immigrants ↗</a><br>
+            <a href="https://www.coveredca.com/" target="_blank" style="color:var(--blue);text-decoration:none" data-i18n="link_covered">Covered California ↗</a><br>
+            <a href="https://www.getcalfresh.org/en/immigrants" target="_blank" style="color:var(--blue);text-decoration:none" data-i18n="link_calfresh">CalFresh for Immigrants ↗</a><br>
+            <a href="https://www.ilrc.org/" target="_blank" style="color:var(--blue);text-decoration:none" data-i18n="link_ilrc">Immigrant Legal Resource Center ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
