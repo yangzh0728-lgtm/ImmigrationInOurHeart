@@ -54,6 +54,9 @@ const i18n = {
     last_verified: "Last verified:",
     w_who: "Who", w_what: "What", w_when: "When", w_where: "Where", w_why: "Why", w_how: "How",
     reply_count: "replies",
+    show_replies: "Show {n} replies",
+    hide_replies: "Hide replies",
+    show_more_replies: "Show {n} more replies",
     completed_of: "of",
     completed_suffix: "completed",
     no_results: "No resources found",
@@ -129,6 +132,9 @@ const i18n = {
     last_verified: "上次验证：",
     w_who: "谁", w_what: "什么", w_when: "何时", w_where: "哪里", w_why: "为什么", w_how: "怎么做",
     reply_count: "条回复",
+    show_replies: "查看 {n} 条回复",
+    hide_replies: "收起回复",
+    show_more_replies: "查看更多 {n} 条回复",
     completed_of: "/",
     completed_suffix: "已完成",
     no_results: "未找到相关资源",
@@ -204,6 +210,9 @@ const i18n = {
     last_verified: "上次驗證：",
     w_who: "誰", w_what: "什麼", w_when: "何時", w_where: "哪裡", w_why: "為什麼", w_how: "怎麼做",
     reply_count: "則回覆",
+    show_replies: "查看 {n} 則回覆",
+    hide_replies: "收起回覆",
+    show_more_replies: "查看更多 {n} 則回覆",
     completed_of: "/",
     completed_suffix: "已完成",
     no_results: "未找到相關資源",
@@ -490,10 +499,76 @@ const checklistData = [
 
 // Forum posts
 let forumPosts = [
-  { id:1, user:"Maria G.", avatar:"MG", time:{en:"2 hours ago","zh-CN":"2小时前","zh-TW":"2小時前"}, body:{en:"Just got my CA driver's license! Tip: Book your DMV appointment early morning on a Tuesday.","zh-CN":"刚拿到加州驾照！建议：周二一早预约DMV，人少很多。","zh-TW":"剛拿到加州駕照！建議：週二一早預約DMV，人少很多。"}, tags:["driving","dmv-tips"], replies:12 },
-  { id:2, user:"Wei L.", avatar:"WL", time:{en:"5 hours ago","zh-CN":"5小时前","zh-TW":"5小時前"}, body:{en:"I'm on H1-B in the Bay Area. Has anyone opened a Chase account with just a passport before getting SSN?","zh-CN":"我持H1-B在湾区。有人在拿到SSN之前只用护照在Chase开过户吗？","zh-TW":"我持H1-B在灣區。有人在拿到SSN之前只用護照在Chase開過戶嗎？"}, tags:["banking","h1b","question"], replies:8 },
-  { id:3, user:"Priya S.", avatar:"PS", time:{en:"1 day ago","zh-CN":"1天前","zh-TW":"1天前"}, body:{en:"PSA: Covered California has a special enrollment for people who just moved. You have 60 days! Also Medi-Cal covers undocumented adults in CA.","zh-CN":"提醒：刚搬到加州的人可以在60天内通过 Covered California 特殊注册期注册医保！另外 Medi-Cal 现在也覆盖无证成年人。","zh-TW":"提醒：剛搬到加州的人可以在60天內透過 Covered California 特殊註冊期註冊醫保！另外 Medi-Cal 現在也覆蓋無證成年人。"}, tags:["healthcare","tip"], replies:15 },
-  { id:4, user:"Ahmed R.", avatar:"AR", time:{en:"2 days ago","zh-CN":"2天前","zh-TW":"2天前"}, body:{en:"SoCalGas let me start gas service online without SSN. Just needed name, address, move-in date. $100 deposit since no US credit.","zh-CN":"SoCalGas 允许在线开通燃气服务，不需要SSN。只需要姓名、地址和搬入日期。因为没有美国信用记录，需要$100押金。","zh-TW":"SoCalGas 允許在線開通瓦斯服務，不需要SSN。只需要姓名、地址和搬入日期。因為沒有美國信用紀錄，需要$100押金。"}, tags:["utilities","socal"], replies:6 },
+  {
+    id:1, user:"Maria G.", avatar:"MG",
+    time:{en:"2 hours ago","zh-CN":"2小时前","zh-TW":"2小時前"},
+    body:{en:"Just got my CA driver's license! Tip: Book your DMV appointment early morning on a Tuesday.","zh-CN":"刚拿到加州驾照！建议：周二一早预约DMV，人少很多。","zh-TW":"剛拿到加州駕照！建議：週二一早預約DMV，人少很多。"},
+    tags:["driving","dmv-tips"],
+    replies:[
+      { user:"Carlos R.", avatar:"CR", time:{en:"1 hour ago","zh-CN":"1小时前","zh-TW":"1小時前"}, body:{en:"Congrats! How long did the whole process take? I'm going next week.","zh-CN":"恭喜！整个过程花了多长时间？我下周要去。","zh-TW":"恭喜！整個過程花了多長時間？我下週要去。"} },
+      { user:"Maria G.", avatar:"MG", time:{en:"55 min ago","zh-CN":"55分钟前","zh-TW":"55分鐘前"}, body:{en:"Thanks Carlos! About 2 hours total — the written test took 20 min, then waited for the road test. Bring snacks!","zh-CN":"谢谢Carlos！总共大约2小时 — 笔试20分钟，然后等路考。带点零食！","zh-TW":"謝謝Carlos！總共大約2小時 — 筆試20分鐘，然後等路考。帶點零食！"} },
+      { user:"Yuki T.", avatar:"YT", time:{en:"45 min ago","zh-CN":"45分钟前","zh-TW":"45分鐘前"}, body:{en:"Tuesday morning is the best tip I've heard! I went on a Friday and waited 3 hours 😩","zh-CN":"周二早上是我听过最好的建议！我周五去的，等了3个小时😩","zh-TW":"週二早上是我聽過最好的建議！我週五去的，等了3個小時😩"} },
+      { user:"Lin Z.", avatar:"LZ", time:{en:"30 min ago","zh-CN":"30分钟前","zh-TW":"30分鐘前"}, body:{en:"Did you study with the official DMV handbook? I heard the Chinese version is available too.","zh-CN":"你是用官方DMV手册学的吗？听说也有中文版。","zh-TW":"你是用官方DMV手冊學的嗎？聽說也有中文版。"} },
+      { user:"Maria G.", avatar:"MG", time:{en:"20 min ago","zh-CN":"20分钟前","zh-TW":"20分鐘前"}, body:{en:"Yes! The handbook is free at dmv.ca.gov in 9 languages. I also used the practice tests on driving-tests.org — super helpful.","zh-CN":"是的！手册在 dmv.ca.gov 免费提供9种语言版本。我还用了 driving-tests.org 的模拟题，非常有帮助。","zh-TW":"是的！手冊在 dmv.ca.gov 免費提供9種語言版本。我還用了 driving-tests.org 的模擬題，非常有幫助。"} },
+      { user:"Priya S.", avatar:"PS", time:{en:"15 min ago","zh-CN":"15分钟前","zh-TW":"15分鐘前"}, body:{en:"Pro tip: Start the application online before going to the DMV. It saves a lot of time at the counter!","zh-CN":"专业提示：去DMV之前先在网上开始申请，在柜台能省很多时间！","zh-TW":"專業提示：去DMV之前先在網上開始申請，在櫃台能省很多時間！"} },
+      { user:"Ahmed R.", avatar:"AR", time:{en:"10 min ago","zh-CN":"10分钟前","zh-TW":"10分鐘前"}, body:{en:"Make sure to bring 2 proofs of CA residency — utility bill or bank statement. They turned someone away who only had one.","zh-CN":"一定要带2份加州居住证明 — 水电费账单或银行对账单。有人只带了一份被拒绝了。","zh-TW":"一定要帶2份加州居住證明 — 水電費帳單或銀行對帳單。有人只帶了一份被拒絕了。"} },
+      { user:"Wei L.", avatar:"WL", time:{en:"8 min ago","zh-CN":"8分钟前","zh-TW":"8分鐘前"}, body:{en:"Does anyone know if they still accept foreign driver's licenses to waive the road test?","zh-CN":"有人知道他们还接受外国驾照来免路考吗？","zh-TW":"有人知道他們還接受外國駕照來免路考嗎？"} },
+      { user:"Maria G.", avatar:"MG", time:{en:"5 min ago","zh-CN":"5分钟前","zh-TW":"5分鐘前"}, body:{en:"@Wei I think only out-of-state US licenses can waive the road test. Foreign licenses still need the full road test unfortunately.","zh-CN":"@Wei 我觉得只有美国其他州的驾照可以免路考。外国驾照还是需要完整路考的。","zh-TW":"@Wei 我覺得只有美國其他州的駕照可以免路考。外國駕照還是需要完整路考的。"} },
+      { user:"Sofia M.", avatar:"SM", time:{en:"3 min ago","zh-CN":"3分钟前","zh-TW":"3分鐘前"}, body:{en:"Don't forget to ask about REAL ID when you're there — you'll need it for domestic flights now.","zh-CN":"别忘了去的时候问一下 REAL ID — 现在坐国内航班需要它。","zh-TW":"別忘了去的時候問一下 REAL ID — 現在搭國內航班需要它。"} },
+      { user:"James K.", avatar:"JK", time:{en:"2 min ago","zh-CN":"2分钟前","zh-TW":"2分鐘前"}, body:{en:"Just booked my Tuesday morning appointment based on this thread. Thanks everyone! 🙏","zh-CN":"根据这个帖子刚预约了周二早上。谢谢大家！🙏","zh-TW":"根據這個帖子剛預約了週二早上。謝謝大家！🙏"} },
+      { user:"Anh N.", avatar:"AN", time:{en:"1 min ago","zh-CN":"1分钟前","zh-TW":"1分鐘前"}, body:{en:"The Glendale DMV is much less crowded than Hollywood or downtown LA, for anyone in the LA area.","zh-CN":"对于在洛杉矶地区的人来说，Glendale DMV 比好莱坞或市中心的人少得多。","zh-TW":"對於在洛杉磯地區的人來說，Glendale DMV 比好萊塢或市中心的人少得多。"} }
+    ]
+  },
+  {
+    id:2, user:"Wei L.", avatar:"WL",
+    time:{en:"5 hours ago","zh-CN":"5小时前","zh-TW":"5小時前"},
+    body:{en:"I'm on H1-B in the Bay Area. Has anyone opened a Chase account with just a passport before getting SSN?","zh-CN":"我持H1-B在湾区。有人在拿到SSN之前只用护照在Chase开过户吗？","zh-TW":"我持H1-B在灣區。有人在拿到SSN之前只用護照在Chase開過戶嗎？"},
+    tags:["banking","h1b","question"],
+    replies:[
+      { user:"Priya S.", avatar:"PS", time:{en:"4 hours ago","zh-CN":"4小时前","zh-TW":"4小時前"}, body:{en:"Yes! I opened a Chase checking account with just my passport and I-94. No SSN needed. Bring your offer letter too.","zh-CN":"可以！我只用护照和I-94就在Chase开了支票账户，不需要SSN。也带上你的offer letter。","zh-TW":"可以！我只用護照和I-94就在Chase開了支票帳戶，不需要SSN。也帶上你的offer letter。"} },
+      { user:"Ahmed R.", avatar:"AR", time:{en:"3.5 hours ago","zh-CN":"3.5小时前","zh-TW":"3.5小時前"}, body:{en:"Bank of America also works without SSN. They gave me a temporary account number and updated it once my SSN arrived.","zh-CN":"Bank of America 也可以在没有SSN的情况下开户。他们给了我一个临时账号，SSN到了之后更新。","zh-TW":"Bank of America 也可以在沒有SSN的情況下開戶。他們給了我一個臨時帳號，SSN到了之後更新。"} },
+      { user:"Lin Z.", avatar:"LZ", time:{en:"3 hours ago","zh-CN":"3小时前","zh-TW":"3小時前"}, body:{en:"I'd also recommend opening a credit union account. They tend to be more flexible with new immigrants and have lower fees.","zh-CN":"我还建议开一个信用合作社的账户。他们对新移民通常更灵活，费用也更低。","zh-TW":"我還建議開一個信用合作社的帳戶。他們對新移民通常更靈活，費用也更低。"} },
+      { user:"Carlos R.", avatar:"CR", time:{en:"2.5 hours ago","zh-CN":"2.5小时前","zh-TW":"2.5小時前"}, body:{en:"Pro tip: Get a secured credit card right away to start building your US credit score. Discover and Capital One both offer them.","zh-CN":"专业提示：立刻办一张有担保的信用卡，开始建立美国信用评分。Discover 和 Capital One 都有。","zh-TW":"專業提示：立刻辦一張有擔保的信用卡，開始建立美國信用評分。Discover 和 Capital One 都有。"} },
+      { user:"Yuki T.", avatar:"YT", time:{en:"2 hours ago","zh-CN":"2小时前","zh-TW":"2小時前"}, body:{en:"Watch out for monthly fees! Many banks waive them if you set up direct deposit. Ask specifically about fee waivers for new accounts.","zh-CN":"注意月费！很多银行设置了直接存款就能免月费。开户时专门问一下费用减免。","zh-TW":"注意月費！很多銀行設置了直接存款就能免月費。開戶時專門問一下費用減免。"} },
+      { user:"Wei L.", avatar:"WL", time:{en:"1 hour ago","zh-CN":"1小时前","zh-TW":"1小時前"}, body:{en:"Thanks everyone! This is super helpful. Going to Chase tomorrow with my passport and I-94. Will report back!","zh-CN":"谢谢大家！非常有帮助。明天带护照和I-94去Chase。回来汇报！","zh-TW":"謝謝大家！非常有幫助。明天帶護照和I-94去Chase。回來匯報！"} },
+      { user:"Sofia M.", avatar:"SM", time:{en:"45 min ago","zh-CN":"45分钟前","zh-TW":"45分鐘前"}, body:{en:"Also check out Zelle — most US banks have it built in. It's the easiest way to send/receive money once you have an account.","zh-CN":"也了解一下 Zelle — 大多数美国银行都内置了它。开户后是最简单的转账方式。","zh-TW":"也了解一下 Zelle — 大多數美國銀行都內置了它。開戶後是最簡單的轉帳方式。"} },
+      { user:"James K.", avatar:"JK", time:{en:"30 min ago","zh-CN":"30分钟前","zh-TW":"30分鐘前"}, body:{en:"One more thing: Keep your first bank statement! You'll need it as proof of address for DMV and other things.","zh-CN":"还有一件事：保留你的第一份银行对账单！去DMV和办其他事情时需要它作为地址证明。","zh-TW":"還有一件事：保留你的第一份銀行對帳單！去DMV和辦其他事情時需要它作為地址證明。"} }
+    ]
+  },
+  {
+    id:3, user:"Priya S.", avatar:"PS",
+    time:{en:"1 day ago","zh-CN":"1天前","zh-TW":"1天前"},
+    body:{en:"PSA: Covered California has a special enrollment for people who just moved. You have 60 days! Also Medi-Cal covers undocumented adults in CA.","zh-CN":"提醒：刚搬到加州的人可以在60天内通过 Covered California 特殊注册期注册医保！另外 Medi-Cal 现在也覆盖无证成年人。","zh-TW":"提醒：剛搬到加州的人可以在60天內透過 Covered California 特殊註冊期註冊醫保！另外 Medi-Cal 現在也覆蓋無證成年人。"},
+    tags:["healthcare","tip"],
+    replies:[
+      { user:"Maria G.", avatar:"MG", time:{en:"22 hours ago","zh-CN":"22小时前","zh-TW":"22小時前"}, body:{en:"This is so important! I almost missed the 60-day window. Can you share the link to apply?","zh-CN":"这太重要了！我差点错过60天的窗口期。能分享一下申请链接吗？","zh-TW":"這太重要了！我差點錯過60天的窗口期。能分享一下申請連結嗎？"} },
+      { user:"Priya S.", avatar:"PS", time:{en:"21 hours ago","zh-CN":"21小时前","zh-TW":"21小時前"}, body:{en:"Sure! Go to coveredca.com and select 'Special Enrollment'. You'll need proof of your move date (lease, utility bill, etc).","zh-CN":"当然！去 coveredca.com 选择"特殊注册"。你需要搬家日期的证明（租约、水电费账单等）。","zh-TW":"當然！去 coveredca.com 選擇「特殊註冊」。你需要搬家日期的證明（租約、水電費帳單等）。"} },
+      { user:"Ahmed R.", avatar:"AR", time:{en:"20 hours ago","zh-CN":"20小时前","zh-TW":"20小時前"}, body:{en:"Also, if your income is low enough, Medi-Cal is completely free. No premiums, no copays for most services.","zh-CN":"另外，如果收入足够低，Medi-Cal 是完全免费的。大多数服务没有保费和自付费用。","zh-TW":"另外，如果收入夠低，Medi-Cal 是完全免費的。大多數服務沒有保費和自付費用。"} },
+      { user:"Lin Z.", avatar:"LZ", time:{en:"18 hours ago","zh-CN":"18小时前","zh-TW":"18小時前"}, body:{en:"For anyone confused by the system: In the US you MUST have insurance or pay out of pocket. A simple ER visit can be $5,000+. Don't skip this!","zh-CN":"给对这个系统不了解的人：在美国你必须有保险否则自费。一次简单的急诊就可能花$5,000以上。不要跳过这步！","zh-TW":"給對這個系統不了解的人：在美國你必須有保險否則自費。一次簡單的急診就可能花$5,000以上。不要跳過這步！"} },
+      { user:"Carlos R.", avatar:"CR", time:{en:"15 hours ago","zh-CN":"15小时前","zh-TW":"15小時前"}, body:{en:"There are also free community health centers (FQHCs) that serve everyone regardless of insurance or immigration status. Use findahealthcenter.hrsa.gov to find one near you.","zh-CN":"还有免费的社区健康中心（FQHCs），无论保险或移民身份都可以就诊。用 findahealthcenter.hrsa.gov 查找附近的。","zh-TW":"還有免費的社區健康中心（FQHCs），無論保險或移民身份都可以就診。用 findahealthcenter.hrsa.gov 查找附近的。"} },
+      { user:"Yuki T.", avatar:"YT", time:{en:"12 hours ago","zh-CN":"12小时前","zh-TW":"12小時前"}, body:{en:"I signed up through Covered CA with a certified enrollment counselor — they speak multiple languages and it's FREE. Highly recommend vs doing it alone.","zh-CN":"我通过 Covered CA 的认证注册顾问报名的 — 他们会说多种语言，而且免费。强烈推荐，比自己弄好多了。","zh-TW":"我透過 Covered CA 的認證註冊顧問報名的 — 他們會說多種語言，而且免費。強烈推薦，比自己弄好多了。"} },
+      { user:"Sofia M.", avatar:"SM", time:{en:"10 hours ago","zh-CN":"10小时前","zh-TW":"10小時前"}, body:{en:"Quick clarification: the Medi-Cal expansion for undocumented adults started in Jan 2024. You apply through your county social services office.","zh-CN":"快速澄清：无证成年人的Medi-Cal扩展从2024年1月开始。通过县社会服务办公室申请。","zh-TW":"快速澄清：無證成年人的Medi-Cal擴展從2024年1月開始。透過縣社會服務辦公室申請。"} },
+      { user:"Wei L.", avatar:"WL", time:{en:"8 hours ago","zh-CN":"8小时前","zh-TW":"8小時前"}, body:{en:"Does getting Medi-Cal affect public charge for green card applications? I've heard conflicting things.","zh-CN":"申请Medi-Cal会影响绿卡申请的公共负担吗？我听到了矛盾的说法。","zh-TW":"申請Medi-Cal會影響綠卡申請的公共負擔嗎？我聽到了矛盾的說法。"} },
+      { user:"Priya S.", avatar:"PS", time:{en:"7 hours ago","zh-CN":"7小时前","zh-TW":"7小時前"}, body:{en:"@Wei As of 2024, Medi-Cal is NOT considered for public charge. You can safely apply. But always consult an immigration lawyer for your specific case.","zh-CN":"@Wei 截至2024年，Medi-Cal 不被算作公共负担。你可以放心申请。但具体情况还是建议咨询移民律师。","zh-TW":"@Wei 截至2024年，Medi-Cal 不被算作公共負擔。你可以放心申請。但具體情況還是建議諮詢移民律師。"} },
+      { user:"Anh N.", avatar:"AN", time:{en:"5 hours ago","zh-CN":"5小时前","zh-TW":"5小時前"}, body:{en:"Covered CA also has phone support in many languages. I called in Vietnamese and got help right away: (800) 300-1506","zh-CN":"Covered CA 也有多语言电话支持。我打越南语电话马上就得到了帮助：(800) 300-1506","zh-TW":"Covered CA 也有多語言電話支持。我打越南語電話馬上就得到了幫助：(800) 300-1506"} },
+      { user:"James K.", avatar:"JK", time:{en:"4 hours ago","zh-CN":"4小时前","zh-TW":"4小時前"}, body:{en:"Don't forget dental and vision! Some Medi-Cal plans include them, and Covered CA has add-on dental plans.","zh-CN":"别忘了牙科和视力！一些Medi-Cal计划包含它们，Covered CA也有附加牙科计划。","zh-TW":"別忘了牙科和視力！一些Medi-Cal計劃包含它們，Covered CA也有附加牙科計劃。"} },
+      { user:"Maria G.", avatar:"MG", time:{en:"2 hours ago","zh-CN":"2小时前","zh-TW":"2小時前"}, body:{en:"Just enrolled! The whole process took about 30 minutes with the online tool. Thanks for the push Priya! 💪","zh-CN":"刚注册完！用在线工具整个过程大约30分钟。谢谢Priya的提醒！💪","zh-TW":"剛註冊完！用在線工具整個過程大約30分鐘。謝謝Priya的提醒！💪"} }
+    ]
+  },
+  {
+    id:4, user:"Ahmed R.", avatar:"AR",
+    time:{en:"2 days ago","zh-CN":"2天前","zh-TW":"2天前"},
+    body:{en:"SoCalGas let me start gas service online without SSN. Just needed name, address, move-in date. $100 deposit since no US credit.","zh-CN":"SoCalGas 允许在线开通燃气服务，不需要SSN。只需要姓名、地址和搬入日期。因为没有美国信用记录，需要$100押金。","zh-TW":"SoCalGas 允許在線開通瓦斯服務，不需要SSN。只需要姓名、地址和搬入日期。因為沒有美國信用紀錄，需要$100押金。"},
+    tags:["utilities","socal"],
+    replies:[
+      { user:"Maria G.", avatar:"MG", time:{en:"1.5 days ago","zh-CN":"1.5天前","zh-TW":"1.5天前"}, body:{en:"Good to know about the $100 deposit! Did you get it back eventually?","zh-CN":"知道要$100押金真好！最后退回来了吗？","zh-TW":"知道要$100押金真好！最後退回來了嗎？"} },
+      { user:"Ahmed R.", avatar:"AR", time:{en:"1.5 days ago","zh-CN":"1.5天前","zh-TW":"1.5天前"}, body:{en:"Yes, they refund it after 12 months of on-time payments! It shows as a credit on your bill.","zh-CN":"是的，按时付款12个月后退还！会在账单上显示为抵用金。","zh-TW":"是的，按時付款12個月後退還！會在帳單上顯示為抵用金。"} },
+      { user:"Priya S.", avatar:"PS", time:{en:"1 day ago","zh-CN":"1天前","zh-TW":"1天前"}, body:{en:"PG&E was similar for me in the Bay Area. Online application, no SSN, $150 deposit. The whole thing was set up in 3 days.","zh-CN":"PG&E在湾区也差不多。在线申请，不需要SSN，$150押金。3天就全部开通了。","zh-TW":"PG&E在灣區也差不多。線上申請，不需要SSN，$150押金。3天就全部開通了。"} },
+      { user:"Lin Z.", avatar:"LZ", time:{en:"1 day ago","zh-CN":"1天前","zh-TW":"1天前"}, body:{en:"Also check if you qualify for the CARE program — it gives you a 20% discount on gas and electric bills if your income is below a certain level.","zh-CN":"也查一下是否符合 CARE 项目的条件 — 如果收入低于一定水平，煤气和电费可以打八折。","zh-TW":"也查一下是否符合 CARE 項目的條件 — 如果收入低於一定水準，瓦斯和電費可以打八折。"} },
+      { user:"Wei L.", avatar:"WL", time:{en:"20 hours ago","zh-CN":"20小时前","zh-TW":"20小時前"}, body:{en:"Don't forget to set up electricity at the same time! I forgot and had no power on move-in day 😅","zh-CN":"别忘了同时开通电力！我忘了，搬进去那天没电😅","zh-TW":"別忘了同時開通電力！我忘了，搬進去那天沒電😅"} },
+      { user:"Carlos R.", avatar:"CR", time:{en:"18 hours ago","zh-CN":"18小时前","zh-TW":"18小時前"}, body:{en:"If you're in LA city, electricity is through LADWP, not SCE. Make sure you check the right provider for your address!","zh-CN":"如果你在洛杉矶市，电力是通过LADWP而不是SCE。确保查对了你地址对应的供应商！","zh-TW":"如果你在洛杉磯市，電力是透過LADWP而不是SCE。確保查對了你地址對應的供應商！"} }
+    ]
+  }
 ];
 
 // ================================================================
@@ -620,17 +695,71 @@ function renderCards() {
 }
 
 function renderForum() {
-  document.getElementById('forumPosts').innerHTML = forumPosts.map(p => `
+  document.getElementById('forumPosts').innerHTML = forumPosts.map(p => {
+    const replyCount = p.replies ? p.replies.length : 0;
+    const previewCount = 2;
+    const hasMore = replyCount > previewCount;
+    return `
     <div class="forum-post">
       <div class="forum-header">
         <div class="forum-avatar">${p.avatar}</div>
         <div class="forum-meta"><span class="forum-user">${p.user}</span><span class="forum-time">${TObj(p.time)}</span></div>
-        <span class="forum-reply-count">💬 ${p.replies} ${T('reply_count')}</span>
+        <span class="forum-reply-count">💬 ${replyCount} ${T('reply_count')}</span>
       </div>
       <div class="forum-body">${TObj(p.body)}</div>
       <div class="forum-tags">${p.tags.map(t=>`<span class="forum-tag">#${t}</span>`).join('')}</div>
-    </div>
-  `).join('');
+      ${replyCount > 0 ? `
+        <div class="replies-section" id="replies-${p.id}">
+          <button class="replies-toggle" onclick="toggleReplies(${p.id})">
+            <span class="replies-toggle-icon" id="replies-icon-${p.id}">▶</span>
+            <span id="replies-label-${p.id}">${T('show_replies').replace('{n}', replyCount)}</span>
+          </button>
+          <div class="replies-list" id="replies-list-${p.id}" style="display:none">
+            ${p.replies.map((r, i) => `
+              <div class="reply ${i >= previewCount ? 'reply-extra reply-extra-' + p.id : ''}" ${i >= previewCount && hasMore ? 'style="display:none"' : ''}>
+                <div class="reply-line"></div>
+                <div class="reply-content">
+                  <div class="reply-header">
+                    <div class="reply-avatar">${r.avatar}</div>
+                    <span class="reply-user">${r.user}</span>
+                    <span class="reply-time">${TObj(r.time)}</span>
+                  </div>
+                  <div class="reply-body">${TObj(r.body)}</div>
+                </div>
+              </div>
+            `).join('')}
+            ${hasMore ? `
+              <button class="show-more-btn" id="more-btn-${p.id}" onclick="showMoreReplies(${p.id})">
+                ${T('show_more_replies').replace('{n}', replyCount - previewCount)}
+              </button>
+            ` : ''}
+          </div>
+        </div>
+      ` : ''}
+    </div>`;
+  }).join('');
+}
+
+function toggleReplies(postId) {
+  const list = document.getElementById('replies-list-' + postId);
+  const icon = document.getElementById('replies-icon-' + postId);
+  const label = document.getElementById('replies-label-' + postId);
+  const post = forumPosts.find(p => p.id === postId);
+  const count = post ? post.replies.length : 0;
+  const isOpen = list.style.display !== 'none';
+  list.style.display = isOpen ? 'none' : 'block';
+  icon.textContent = isOpen ? '▶' : '▼';
+  label.textContent = isOpen
+    ? T('show_replies').replace('{n}', count)
+    : T('hide_replies');
+}
+
+function showMoreReplies(postId) {
+  document.querySelectorAll('.reply-extra-' + postId).forEach(el => {
+    el.style.display = 'flex';
+  });
+  const btn = document.getElementById('more-btn-' + postId);
+  if (btn) btn.style.display = 'none';
 }
 
 function renderChecklist() {
@@ -761,7 +890,7 @@ function addPost() {
   if (!text) return;
   forumPosts.unshift({ id:Date.now(), user:"You", avatar:"YO",
     time:{en:"Just now","zh-CN":"刚刚","zh-TW":"剛剛"},
-    body:{en:text,"zh-CN":text,"zh-TW":text}, tags:["new"], replies:0 });
+    body:{en:text,"zh-CN":text,"zh-TW":text}, tags:["new"], replies:[] });
   input.value = '';
   renderForum();
 }
